@@ -36,10 +36,8 @@ def render() -> None:
 	}
 	if is_target_image:
 		target_image_options['value'] = TARGET_FILE.value.get('path')
-		target_image_options['visible'] = True
 	if is_target_video:
 		target_video_options['value'] = TARGET_FILE.value.get('path')
-		target_video_options['visible'] = True
 	TARGET_IMAGE = gradio.Image(**target_image_options)
 	TARGET_VIDEO = gradio.Video(**target_video_options)
 	register_ui_component('target_image', TARGET_IMAGE)
@@ -55,11 +53,11 @@ def update(file : File) -> Tuple[gradio.Image, gradio.Video]:
 
 	if file and is_image(file.name):
 		state_manager.set_item('target_path', file.name)
-		return gradio.Image(value = file.name, visible = True), gradio.Video(value = None, visible = False)
+		return gradio.Image(value = file.name, visible = False), gradio.Video(value = None, visible = False)
 
 	if file and is_video(file.name):
 		state_manager.set_item('target_path', file.name)
-		return gradio.Image(value = None, visible = False), gradio.Video(value = file.name, visible = True)
+		return gradio.Image(value = None, visible = False), gradio.Video(value = file.name, visible = False)
 
 	state_manager.clear_item('target_path')
 	return gradio.Image(value = None, visible = False), gradio.Video(value = None, visible = False)

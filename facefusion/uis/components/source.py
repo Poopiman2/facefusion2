@@ -30,12 +30,12 @@ def render() -> None:
 	source_image_path = get_first(filter_image_paths(source_file_names))
 	SOURCE_AUDIO = gradio.Audio(
 		value = source_audio_path if has_source_audio else None,
-		visible = has_source_audio,
+		visible = False,
 		show_label = False
 	)
 	SOURCE_IMAGE = gradio.Image(
 		value = source_image_path if has_source_image else None,
-		visible = has_source_image,
+		visible = False,
 		show_label = False
 	)
 	register_ui_component('source_audio', SOURCE_AUDIO)
@@ -55,7 +55,7 @@ def update(files : List[File]) -> Tuple[gradio.Audio, gradio.Image]:
 		source_audio_path = get_first(filter_audio_paths(file_names))
 		source_image_path = get_first(filter_image_paths(file_names))
 		state_manager.set_item('source_paths', file_names)
-		return gradio.Audio(value = source_audio_path, visible = has_source_audio), gradio.Image(value = source_image_path, visible = has_source_image)
+		return gradio.Audio(value = source_audio_path, visible = False), gradio.Image(value = source_image_path, visible = False)
 
 	state_manager.clear_item('source_paths')
 	return gradio.Audio(value = None, visible = False), gradio.Image(value = None, visible = False)
